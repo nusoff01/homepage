@@ -201,7 +201,6 @@ const Legend = (legendProps: any) => {
 }
 
 const addVerticalLine = (svg: any, xPos: number, y1: number, y2: number, lineClass: string, secondaryLineClass: string = '') => {
-    debugger;
     let avgLine = svg.selectAll(`.${lineClass}`)
             .data([xPos]); 
         avgLine.enter()
@@ -362,7 +361,7 @@ const TeamPitching = (teamProps: any) => {
         var simulation = d3.forceSimulation()
             .nodes(players)
             .force("y", d3.forceY(function(d) { return height / 2; }).strength(0.001))
-            .force("collide", d3.forceCollide().radius(function(d: any) { console.log(rScale(d.r)); return rScale(d.r); }))
+            .force("collide", d3.forceCollide().radius(function(d: any) { return rScale(d.r); }))
             .on('tick', () => {
                 enteredPlayerGroups.each(function(d: any){d.x = d.originalX; }) //constrains/fixes x-position
                 let xTransform = 0;
