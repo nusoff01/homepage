@@ -201,6 +201,7 @@ const Legend = (legendProps: any) => {
 }
 
 const addVerticalLine = (svg: any, xPos: number, y1: number, y2: number, lineClass: string, secondaryLineClass: string = '') => {
+    debugger;
     let avgLine = svg.selectAll(`.${lineClass}`)
             .data([xPos]); 
         avgLine.enter()
@@ -328,7 +329,7 @@ const TeamPitching = (teamProps: any) => {
                     .attr('fill', getTeamPrimary(d.Tm))
                     .merge(circle)
                     .attr('r', (d: any) => rScale(d.r))
-                    .on('mouseover', () => {
+                    .on('mouseover', function () {
                         tooltip.classed('hidden', false);
                         let y = height - (d.y - rScale(d.r) - 8);
                         let x = Math.max((width - d.x < 100) ? width - 200 : d.x - 100, 16);
@@ -336,6 +337,7 @@ const TeamPitching = (teamProps: any) => {
                             .style('bottom', `${Math.floor(y)}px`);
                         setTooltipText(tooltip, d);
                     })
+                    .style('stroke', getTeamSecondary(d.Tm))
                     .on('mouseout', () => {
                         tooltip.classed('hidden', true);
                     });

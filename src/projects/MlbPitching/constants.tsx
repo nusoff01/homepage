@@ -13,7 +13,7 @@ const teamNameMap: any = {
     'KCR': {teamName: 'Kansas City Royals', primaryColor: 'rgb(0,70,135)', secondaryColor: 'rgb(189,155,96)'},
     'LAA': {teamName: 'Los Angeles Angels', primaryColor: 'rgb(0,50,99)', secondaryColor: 'rgb(186,0,33)'},
     'LAD': {teamName: 'Los Angeles Dodgers', primaryColor: 'rgb(0,90,156)', secondaryColor: 'rgb(255,255,255)'},
-    'MIA': {teamName: 'Miami Marlins', primaryColor: 'rgb(0,163,224)', secondaryColor: 'rgb(239,51,64)'},
+    'MIA': {teamName: 'Miami Marlins', primaryColor: 'rgb(0,0,0)', secondaryColor: 'rgb(0,163,224)'},
     'MIL': {teamName: 'Milwuake Brewers', primaryColor: 'rgb(18, 40, 75)', secondaryColor: 'rgb(255, 197, 47)'},
     'MIN': {teamName: 'Minnesota Twins', primaryColor: 'rgb(0,43,92)', secondaryColor: 'rgb(211,17,69)'},
     'NYM': {teamName: 'New York Mets', primaryColor: 'rgb(0,45, 114)', secondaryColor: 'rgb(252,89,16)'},

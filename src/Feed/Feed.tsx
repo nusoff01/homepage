@@ -54,7 +54,7 @@ class Feed extends React.Component<FeedProps, {}> {
                             {project.content}     
                             <br/>
                             <br/>
-                            <a href={project.link}>
+                            <a href={`${project.link}`}>
                             <button className='projectLink'>Check it out</button>
                             </a>
                         </p>

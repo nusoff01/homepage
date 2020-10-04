@@ -1,9 +1,9 @@
 
 .totalAvg {
-    stroke: grey;
+    stroke: rgba(128,128,128,.4);
 }
 .teamAvg {
-    stroke: red;
+    stroke: rgba(255,0,0,.2);
 }
 .guideline {
     stroke: rgba(0,0,0,.2);
@@ -83,7 +83,9 @@
             flex-grow: 1;
             position: relative;
             .teamPlayersChart {
-                background-color: rgba(0,0,0,.08);
+                background-color: rgba(0,0,0,.05);
+                box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.25);
+
 
                 .avgLine {
                     stroke: grey;
@@ -97,12 +99,19 @@
                     pointer-events: none;
                     font-weight: bold;
                 }
+                circle {
+                    stroke-width: 0px;
+                    &:hover {
+                        stroke-width: 2px;
+                    }
+                }
             }
             .tooltipContainer {
+                box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.25);
                 position: absolute;
                 left: 0px;
                 bottom: 0px;
-                border: 1px solid grey;
+                border: 1px solid rgba(0,0,0,.2);
                 background: white;
                 border-radius: 4px;
                 padding: 8px;
