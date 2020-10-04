@@ -1,0 +1,82 @@
+.feedContainer {
+    margin-top: 24px;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 24px 8px;
+
+    h1, h2, p {
+        margin: 0px;
+    }
+
+    hr {
+        background-color: grey;
+        border: none;
+        height: 2px;
+        margin: 0px 4px;
+    }    
+    
+    .feedTitle {
+        font-weight: bold;
+    }
+
+
+    .projectContainer {
+        margin: 16px auto;
+        padding: 16px;
+        text-align: left;
+        background: rgba(70,40,150,.1);
+        border-radius: 4px;
+        box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.2);
+        .projectHeader, .projectSubheader {
+            margin: 4px;
+        }
+        .projectHeader {
+            font-size: 36px;
+        }
+        .projectSubheader {
+            font-style: italic;
+            margin-top: 12px;
+        }
+        .projectLink {
+            border-radius: 4px;
+            outline: none;
+            border: 1px solid grey;
+            height: 28px;
+            background: white;
+            margin-left: 0px;
+            cursor: pointer;
+        }
+        .tags {
+            margin: 8px 0px 16px 0px;
+            .tag {
+                margin: 0px 4px;
+                padding: 2px 4px;
+                background-color: white;
+            }
+        }
+
+    }
+    .tagToggles {
+        margin-top: 16px;
+        .tagToggle {
+            padding: 2px 4px;
+            margin: 0 4px;
+            background: white;
+            border: 1px solid grey;
+            border-radius: 4px;
+        }
+    }
+}
+
+@media (max-width:600px) {
+    .feedContainer {
+        .projectContainer {
+            .projectHeader {
+                font-size: 24px !important;
+            }    
+            .projectSubheader {
+                font-size: 14px;
+            }
+        }
+    }
+}

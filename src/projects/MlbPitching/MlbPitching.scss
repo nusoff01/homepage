@@ -1,0 +1,175 @@
+
+.totalAvg {
+    stroke: grey;
+}
+.teamAvg {
+    stroke: red;
+}
+.guideline {
+    stroke: rgba(0,0,0,.2);
+    stroke-dasharray: 3px;
+}
+.guidelineLabel {
+    font-size: 10px;
+    text-anchor: middle;
+    font-style: italic;
+}
+
+
+.mlbPitchingContainer {
+    margin: 16px auto;
+    max-width: 1080px;
+
+    .controls {
+        text-align: left;
+    }
+    .header, .controls {
+        padding: 0px 16px;
+    }
+    .title {
+        font-size: 32px;
+    }
+    hr {
+        border: none;
+    }
+    .subtitle {
+        font-size: 14px;
+    }
+    #eachTeam {
+        position: relative;
+    }
+    #legend {
+        height: 80px;
+        width: 100%;
+        .teamAvgText, .leagueAvgText {
+            font-size: 12px;
+            font-style: italic;
+        }
+        .leagueAvgText {
+            text-anchor: middle;
+        }
+        .teamAvgText {
+            text-anchor: start;
+        }
+    }
+    .teamRow {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 16px;
+        position: relative;
+        min-height: 180px;
+
+        .teamOverview, .teachChartContainer {
+            padding: 16px;
+            text-align: right;
+        }
+        .teamOverview {
+            text-align: right;
+            height: 60px;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            padding: 8px 24px;
+            .teamName {
+                margin: 0px;
+                font-size: 20px;
+            }
+            .teamStats {
+                margin: 0;
+                font-size: 12px;
+            }
+        }
+        .teamChartContainer {
+            flex-grow: 1;
+            position: relative;
+            .teamPlayersChart {
+                background-color: rgba(0,0,0,.08);
+
+                .avgLine {
+                    stroke: grey;
+                }
+                .teamAvgLine {
+                    stroke: red;
+                }
+                .playerInitials {
+                    text-anchor: middle;
+                    font-size: 10px;
+                    pointer-events: none;
+                    font-weight: bold;
+                }
+            }
+            .tooltipContainer {
+                position: absolute;
+                left: 0px;
+                bottom: 0px;
+                border: 1px solid grey;
+                background: white;
+                border-radius: 4px;
+                padding: 8px;
+                display: block;
+                pointer-events: none;
+
+                margin: 0;
+                text-align: left;
+
+                width: 180px;
+
+                .playerName, .playerStats {
+                    margin: 0;
+                }
+                .playerName {
+                    font-size: 16px;
+                }
+                .playerStats {
+                    font-size: 12px;
+                }
+                &.hidden {
+                    display: none;
+                }
+            }
+        }
+    }    
+}
+
+
+
+@media (max-width:720px) {
+    .guidelineLabel {
+        font-size: 8px;
+    }
+
+    .guidelineLabel50, .guideline50, .guidelineLabel150, .guideline150  {
+        display: none;
+    }
+
+    .mlbPitchingContainer {
+        .title {
+            font-size: 20px;
+        }
+        .subtitle {
+            font-size: 10px;
+        }
+        .teamRow {    
+            .teamOverview {
+                .teamName {
+                    font-size: 16px;
+                }
+                .teamStats {
+                    font-size: 10px;
+                }
+            }
+            .teamChartContainer {
+                .tooltipContainer {
+                    width: 136px; 
+                    .playerName {
+                        font-size: 12px; 
+                    }
+                    .playerStats {
+                        font-size: 9px; 
+                    }
+                }
+            }
+        }    
+    }
+}
+
