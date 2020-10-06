@@ -19,9 +19,17 @@
 .mlbPitchingContainer {
     margin: 16px auto;
     max-width: 1080px;
+    min-width: 300px;
 
     .controls {
-        text-align: left;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        top: 50px;
+        position: relative;
+        span {
+            margin-right: 4px;
+        }
     }
     .header, .controls {
         padding: 0px 16px;
@@ -145,6 +153,10 @@
 @media (max-width:720px) {
     .guidelineLabel {
         font-size: 8px;
+    }
+    
+    .controls * {
+        font-size: 12px;
     }
 
     .guidelineLabel50, .guideline50, .guidelineLabel150, .guideline150  {
