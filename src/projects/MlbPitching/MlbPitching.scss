@@ -73,11 +73,13 @@
         }
         .teamOverview {
             text-align: right;
-            height: 60px;
+            height: 56px;
             position: absolute;
             top: 0px;
             right: 0px;
-            padding: 8px 24px;
+            margin: 8px 24px;
+            padding: 8px;
+            z-index: 1;
             .teamName {
                 margin: 0px;
                 font-size: 20px;

@@ -139,7 +139,7 @@ const MlbPitching = () => {
                 </div>
             ))}
         </div>
-        <div className={'credits'}> Data comes from baseball-reference.com, found <a href='https://www.baseball-reference.com/leagues/MLB/2020-standard-pitching.shtml'>here</a></div>
+        <div className={'credits'}> Data comes from baseball-reference.com, found <a href='https://www.baseball-reference.com/leagues/MLB/2020-standard-pitching.shtml'>here</a>. Comments or concerns? Send to <a href="https://twitter.com/heyusoft">@heyusoft</a></div>
     </div>);
 }
 
