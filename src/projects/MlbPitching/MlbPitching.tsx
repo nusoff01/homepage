@@ -11,7 +11,10 @@ const maxCircleWidthBelow = 16;
 const maxCircleWidthAbove = 36;
 const styleWidthCutoff = 720;
 const inningsCutoffOptions = [0,10,20,30,40,50,60];
-const guidelineValues = [0,50,100,150,200,400,800,1200];
+// const guidelineValues = [0,50,100,150,200,250];
+// const currTeam = 29;
+const guidelineValues = [0,50,100,150,200,400,800,1200, Infinity];
+
 
 let simulationMap: any = {};
 
@@ -67,6 +70,21 @@ const MlbPitching = () => {
         return filteredPlayers;
     }
 
+    const filterPlayers = (players: Array<any>, team: string = '', minInnings: number = 0) => {
+        let filteredPlayers = players;
+        if (team !== '') {
+            filteredPlayers = filteredPlayers.filter((player: any) => {
+                return (player.Tm === team); 
+            });
+        }
+        if (minInnings !== 0) {
+            filteredPlayers = filteredPlayers.filter((player: any) => {
+                return player.IP >= minInnings;
+            }); 
+        }
+        return filteredPlayers;    
+    }
+
     useEffect(() => {
         async function fetchData() {
             d3.queue()
@@ -90,13 +108,20 @@ const MlbPitching = () => {
                     });
 
                     players = players.map((player: any) => {
-                        player.xValue = Number(player[xVar]);
+                        player.xValue = player[xVar] !== '' ? Number(player[xVar]) : Infinity;
                         player.r = Number(player['IP']);
                         player.y = 0;
                         return player;
                     });
 
-                    setDomain(d3.extent(players, (d: any) => d.xValue) as any);                
+                    //FOR SINGLE TEAM
+                    // let activeTeam = teams[currTeam];
+                    // players = filterPlayers(players, activeTeam.Tm);
+                    // teams = [activeTeam];
+
+                    setDomain(d3.extent(players.filter((player: any) => {
+                        return player.xValue !== Infinity;
+                    }), (d: any) => d.xValue) as any);                
                     setTeamsPitchingData(teams);
                 });   
         }
@@ -116,7 +141,6 @@ const MlbPitching = () => {
     return (<div className={'mlbPitchingContainer'}>
         <h1 className={'header title'}>2020 MLB Pitching Staff Comparisons</h1>
         <p className={'header subtitle'}>Each team's pitchers are circles: the size of the circle is how much that pitcher has been used by that team (Innings pitched), and the horizontal position is how effective they've been (ERA+)</p>
-        <hr/>
         <div className={'controls'}>
             <span>Minimum innings: </span>
             <select onChange={(e: any) => {setMinInnings(Number(e.target.value))}}>
@@ -126,7 +150,7 @@ const MlbPitching = () => {
                 </option>))}
             </select>
         </div>
-        <Legend domain={domain} width={chartWidth}/>
+        <Legend domain={domain} width={chartWidth} firstTeam={teamsPitchingData[0]}/>
         <div id={'eachTeam'}>
             {teamsPitchingData.map((team: any, i: number) => (
                 <div key={i} className={'teamRow'}>
@@ -135,7 +159,7 @@ const MlbPitching = () => {
                         <p className={'teamStats'}>team ERA+: {team['ERA+']}</p>
                         <p className={'teamStats'}>team ERA: {team['ERA']}</p>
                     </div>
-                    <TeamPitching teamID={team.Tm} domain={domain} data={getInningsFilteredPitchers()} team={team} width={chartWidth}/>
+                    <TeamPitching teamID={team.Tm} domain={domain} data={getInningsFilteredPitchers()} team={team} width={chartWidth} firstTeam={teamsPitchingData[0]}/>
                 </div>
             ))}
         </div>
@@ -143,10 +167,12 @@ const MlbPitching = () => {
     </div>);
 }
 
-const Legend = (legendProps: any) => {
+const Legend = (legendProps: any, width: number) => {
+    console.log(legendProps);
     const drawLegend = (container: any, xScale: any) => {
         const teamTop = 50;
         const leagueTop = 30;
+        const teamAvgValue = legendProps.firstTeam ? legendProps.firstTeam[xVar] : 141;
 
         let svg: any = container.selectAll('svg')
             .data([legendProps.domain]);
@@ -157,7 +183,7 @@ const Legend = (legendProps: any) => {
         svg.exit().remove();
 
         addVerticalLine(svg, xScale(102), leagueTop, 80, 'totalAvg');
-        addVerticalLine(svg, xScale(141), teamTop, 80, 'teamAvg');
+        addVerticalLine(svg, xScale(teamAvgValue), teamTop, 80, 'teamAvg');
 
         let leagueAvgText = svg.selectAll('.leagueAvgText').data(['League avg']);
         leagueAvgText.enter().append('text')
@@ -174,7 +200,8 @@ const Legend = (legendProps: any) => {
             .text((d: string) => d)
             .attr('y', teamTop - 4)
             .merge(teamAvgText)
-            .attr('x', xScale(141));
+            .style('text-anchor', (teamAvgValue < 102) ? 'end' : 'start')
+            .attr('x', xScale(teamAvgValue))
         teamAvgText.exit().remove();
 
         let guidelineLabels = svg.selectAll('.guidelineLabel').data(guidelineValues);
@@ -183,8 +210,11 @@ const Legend = (legendProps: any) => {
             .attr('class', (d: any) => `guidelineLabel guidelineLabel${d}`)
             .attr('y', 78)
             .merge(guidelineLabels)
-            .text((d: any) => d)
-            .attr('x', (d: any) => xScale(d));
+            .text((d: any) => d === Infinity ? '∞' : d)
+            .attr('x', (d: any) => {
+                // console.log(d === Infinity);
+                return (d === Infinity ? (legendProps.width - 24) : xScale(d));
+            });
         guidelineLabels.exit().remove();
     }
 
@@ -256,7 +286,7 @@ const TeamPitching = (teamProps: any) => {
         drawAvgLine(enteredSVG, xScale);
         drawTeamAvgLine(enteredSVG, xScale, teamProps.team[xVar]);
         guidelineValues.forEach((v: number) => {
-            addVerticalLine(enteredSVG, xScale(v), 0, height, `guideline${v}`,  `guideline`);
+            addVerticalLine(enteredSVG, (v === Infinity ? (width - 24) : xScale(v)), 0, height, `guideline${v}`,  `guideline`);
         })
         drawPlayers(enteredSVG, xScale, rScale, teamPlayers, tooltip);
     }
@@ -301,7 +331,7 @@ const TeamPitching = (teamProps: any) => {
         playerStats.enter().append('p')
             .attr('class', 'playerStats')
             .merge(playerStats)
-            .text((d: any) => `ERA: ${d.ERA}, ERA+: ${d['ERA+']}, IP: ${d.IP}`);
+            .text((d: any) => `ERA: ${d.ERA !== '' ? d.ERA : '∞'}, ERA+: ${d['ERA+'] !== '' ? d['ERA+'] : '∞'}, IP: ${d.IP}`);
         playerStats.exit().remove();
     }
 

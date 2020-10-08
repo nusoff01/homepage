@@ -22,6 +22,7 @@
     min-width: 300px;
 
     .controls {
+        align-items: center;
         display: flex;
         flex-direction: row;
         justify-content: flex-end;
@@ -36,9 +37,6 @@
     }
     .title {
         font-size: 32px;
-    }
-    hr {
-        border: none;
     }
     .subtitle {
         font-size: 14px;
@@ -73,20 +71,22 @@
         }
         .teamOverview {
             text-align: right;
-            height: 56px;
             position: absolute;
             top: 0px;
             right: 0px;
-            margin: 8px 24px;
-            padding: 8px;
+            margin: 8px 20px;
+            padding: 4px 8px;
             z-index: 1;
+            background: rgb(230, 230, 230);
+            border: 1px solid white;
             .teamName {
                 margin: 0px;
                 font-size: 20px;
             }
             .teamStats {
-                margin: 0;
+                margin: 2px;
                 font-size: 12px;
+                font-style: italic;
             }
         }
         .teamChartContainer {
@@ -105,7 +105,7 @@
                 }
                 .playerInitials {
                     text-anchor: middle;
-                    font-size: 10px;
+                    font-size: 9px;
                     pointer-events: none;
                     font-weight: bold;
                 }

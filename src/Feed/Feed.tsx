@@ -43,21 +43,26 @@ class Feed extends React.Component<FeedProps, {}> {
                 </h4>
                 {this.props.projects.map((project) => {
                     return <div className='projectContainer'>
-                        <h2 className='projectHeader'>{project.title}</h2>
-                        <h4 className='tags'>
-                            {project.tags.map((tag: String) => {
-                                return <span className='tag'>{tag}</span>;
-                            })}
-                        </h4>
-                        <hr/>
-                        <p className='projectSubheader'>
-                            {project.content}     
-                            <br/>
-                            <br/>
-                            <a href={`${project.link}`}>
+                        <div className='projectDescAndImg'>
+                            <div className='projectDescription'>
+                                <h2 className='projectHeader'>{project.title}</h2>
+                                <h4 className='tags'>
+                                    {project.tags.map((tag: String) => {
+                                        return <span className='tag'>{tag}</span>;
+                                    })}
+                                </h4>
+                                <hr/>
+                                <p className='projectSubheader'>
+                                    {project.content} 
+                                </p>
+                            </div>
+                            <div className='projectPicture'>
+                                <img src='./images/pitching.png'></img>
+                            </div>
+                        </div>
+                        <a href={project.link}>
                             <button className='projectLink'>Check it out</button>
-                            </a>
-                        </p>
+                        </a>
                     </div>;
                 })}
       </div>

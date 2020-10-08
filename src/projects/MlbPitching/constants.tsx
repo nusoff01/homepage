@@ -6,7 +6,7 @@ const teamNameMap: any = {
     'CHC': {teamName: 'Chicago Cubs', primaryColor: 'rgb(14,51,134)', secondaryColor: 'rgb(204,52,51)'},
     'CHW': {teamName: 'Chicago White Sox', primaryColor: 'rgb(39,37,31)', secondaryColor: 'rgb(196,206,212)'},
     'CIN': {teamName: 'Cincinnati Reds', primaryColor: 'rgb(198,1,31)', secondaryColor: 'rgb(0,0,0)'},
-    'CLE': {teamName: 'Cleveland Baseball Team', primaryColor: 'rgb(12,35,64)', secondaryColor: 'rgb(227,25,55)'},
+    'CLE': {teamName: 'Cleveland', primaryColor: 'rgb(12,35,64)', secondaryColor: 'rgb(227,25,55)'},
     'COL': {teamName: 'Colorado Rockies', primaryColor: 'rgb(51,0,111)', secondaryColor: 'rgb(196,206,212)'},
     'DET': {teamName: 'Detroit Tigers', primaryColor: 'rgb(12,35,64)', secondaryColor: 'rgb(250,70,22)'},
     'HOU': {teamName: 'Houston Astros', primaryColor: 'rgb(0,45,98)', secondaryColor: 'rgb(235,110,31)'},

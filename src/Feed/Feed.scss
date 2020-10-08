@@ -19,25 +19,44 @@
         font-weight: bold;
     }
 
-
     .projectContainer {
+        min-width:  280px;
+        position: relative;
         margin: 16px auto;
         padding: 16px;
         text-align: left;
-        background: rgba(70,40,150,.1);
         border-radius: 4px;
-        box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.2);
-        .projectHeader, .projectSubheader {
-            margin: 4px;
-        }
-        .projectHeader {
-            font-size: 36px;
-        }
-        .projectSubheader {
-            font-style: italic;
-            margin-top: 12px;
+        box-shadow: 0px 1px 5px 0px rgba(0,0,0,.12);
+        background: rgba(44,14,55,.1);
+        .projectDescAndImg {
+            display: flex;
+            flex-direction: row-reverse;
+            .projectDescription {
+                padding: 16px;
+                .projectHeader, .projectSubheader {
+                    margin: 4px;
+                }
+                .projectHeader {
+                    font-size: 36px;
+                }
+                .projectSubheader {
+                    font-style: italic;
+                    margin-top: 12px;
+                }
+            }
+            .projectPicture {
+                min-width: 280px;
+                
+                img {
+                    width: 100%;
+                    object-fit: contain;
+                }
+            }
         }
         .projectLink {
+            position: absolute;
+            right: 16px;
+            bottom: 16px;
             border-radius: 4px;
             outline: none;
             border: 1px solid grey;
@@ -68,14 +87,32 @@
     }
 }
 
-@media (max-width:600px) {
+@media (max-width:720px) {
     .feedContainer {
         .projectContainer {
-            .projectHeader {
-                font-size: 24px !important;
-            }    
-            .projectSubheader {
-                font-size: 14px;
+            text-align:center;
+            .projectDescAndImg {
+                flex-direction: column;
+                .projectHeader {
+                    font-size: 24px !important;
+                }    
+                .projectSubheader {
+                    font-size: 14px;
+                }
+                .projectPicture {
+                    width: 100%;
+                    text-align: center;
+                    max-width:unset;
+                    img {
+                        max-width: 500px;
+                    }
+                }
+            } 
+            .projectLink {
+                position: relative;
+                right: unset;
+                bottom: -4px;
+                margin: 0 auto;
             }
         }
     }
