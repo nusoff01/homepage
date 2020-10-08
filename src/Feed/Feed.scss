@@ -37,7 +37,7 @@
                     margin: 4px;
                 }
                 .projectHeader {
-                    font-size: 36px;
+                    font-size: 28px;
                 }
                 .projectSubheader {
                     font-style: italic;
@@ -46,7 +46,7 @@
             }
             .projectPicture {
                 min-width: 280px;
-                
+                max-width: 60%;
                 img {
                     width: 100%;
                     object-fit: contain;

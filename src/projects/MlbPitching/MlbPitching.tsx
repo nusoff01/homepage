@@ -11,8 +11,6 @@ const maxCircleWidthBelow = 16;
 const maxCircleWidthAbove = 36;
 const styleWidthCutoff = 720;
 const inningsCutoffOptions = [0,10,20,30,40,50,60];
-// const guidelineValues = [0,50,100,150,200,250];
-// const currTeam = 29;
 const guidelineValues = [0,50,100,150,200,400,800,1200, Infinity];
 
 
@@ -63,9 +61,10 @@ const MlbPitching = () => {
     const xVar = 'ERA+';
 
 
-    const getInningsFilteredPitchers = () => {
+    const getInningsFilteredPitchers = (minInningsParam: any = null) => {
+        let minIP: number = minInningsParam !== null ? minInningsParam : minInnings;
         let filteredPlayers = playersPitchingData.filter((player: any) => {
-            return player.IP >= minInnings;
+            return player.IP >= minIP;
         }); 
         return filteredPlayers;
     }
@@ -114,11 +113,6 @@ const MlbPitching = () => {
                         return player;
                     });
 
-                    //FOR SINGLE TEAM
-                    // let activeTeam = teams[currTeam];
-                    // players = filterPlayers(players, activeTeam.Tm);
-                    // teams = [activeTeam];
-
                     setDomain(d3.extent(players.filter((player: any) => {
                         return player.xValue !== Infinity;
                     }), (d: any) => d.xValue) as any);                
@@ -127,6 +121,10 @@ const MlbPitching = () => {
         }
         fetchData();
     }, []);
+
+    useEffect(() => {
+        
+    })
 
     const getTeamName = (teamKey: string): string => {
         if (teamKey in teamNameMap) {
@@ -143,7 +141,16 @@ const MlbPitching = () => {
         <p className={'header subtitle'}>Each team's pitchers are circles: the size of the circle is how much that pitcher has been used by that team (Innings pitched), and the horizontal position is how effective they've been (ERA+)</p>
         <div className={'controls'}>
             <span>Minimum innings: </span>
-            <select onChange={(e: any) => {setMinInnings(Number(e.target.value))}}>
+            <select onChange={(e: any) => {
+                setMinInnings(Number(e.target.value));
+                let rawExtent: any = d3.extent(getInningsFilteredPitchers(Number(e.target.value)).filter((player: any) => {
+                    return player.xValue !== Infinity;
+                }), (d: any) => d.xValue);
+                if (rawExtent[1] < 450 && rawExtent[1] > 350) {
+                    rawExtent[1] = 450;
+                }
+                setDomain(rawExtent);
+            }}>
                 {inningsCutoffOptions.map((innings: any, i: number) => 
                 (<option  key={i}>
                     {innings}
@@ -168,7 +175,6 @@ const MlbPitching = () => {
 }
 
 const Legend = (legendProps: any, width: number) => {
-    console.log(legendProps);
     const drawLegend = (container: any, xScale: any) => {
         const teamTop = 50;
         const leagueTop = 30;
@@ -212,7 +218,6 @@ const Legend = (legendProps: any, width: number) => {
             .merge(guidelineLabels)
             .text((d: any) => d === Infinity ? '∞' : d)
             .attr('x', (d: any) => {
-                // console.log(d === Infinity);
                 return (d === Infinity ? (legendProps.width - 24) : xScale(d));
             });
         guidelineLabels.exit().remove();

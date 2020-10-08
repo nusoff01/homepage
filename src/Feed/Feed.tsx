@@ -57,7 +57,7 @@ class Feed extends React.Component<FeedProps, {}> {
                                 </p>
                             </div>
                             <div className='projectPicture'>
-                                <img src='./images/pitching.png'></img>
+                                <img src={project.imageLink}></img>
                             </div>
                         </div>
                         <a href={project.link}>
