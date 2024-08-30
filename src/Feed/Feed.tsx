@@ -41,8 +41,8 @@ class Feed extends React.Component<FeedProps, {}> {
                         return <button className='tagToggle'>{tagState[0]}</button>;
                     })}
                 </h4>
-                {this.props.projects.map((project) => {
-                    return <div className='projectContainer'>
+                {this.props.projects.map((project, i) => {
+                    return <div className='projectContainer' key={i}>
                         <div className='projectDescAndImg'>
                             <div className='projectDescription'>
                                 <h2 className='projectHeader'>{project.title}</h2>
@@ -65,9 +65,9 @@ class Feed extends React.Component<FeedProps, {}> {
                         </a>
                     </div>;
                 })}
-      </div>
-    );  
-  }
+            </div>
+        );  
+    }
 }
 
 export default Feed;
